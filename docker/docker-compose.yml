@@ -1,8 +1,7 @@
 version: '3'
 services:
-
     composer.install:
-        image: akeneo/php
+        build: images/php-cli
         volumes:
             - ../crm:/app
         container_name: composer.install
@@ -10,7 +9,7 @@ services:
         command: composer install
 
     php-fpm:
-        image: akeneo/fpm
+        build: images/php-fpm
         ports:
             - '9000:9000'
         volumes:
@@ -27,26 +26,28 @@ services:
         container_name: 'nginx'
         working_dir: /app
         ports:
-            - '80:80'
+            - '8080:80'
         volumes:
             - ../crm:/app
             - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
         links:
             - php-fpm
+            - postgres
         depends_on:
             - composer.install
-#
-#    postgres:
-#        image: postgres
-#        ports:
-#            - '5432:5432'
-#        container_name: 'postgresql'
-#        working_dir: /app
-#        restart: always
-#        environment:
-#            POSTGRES_DB: 'db_name'
-#            POSTGRES_USER: 'db_user'
-#            POSTGRES_PASSWORD: 'db_pass'
-#        volumes:
-#            - ./data/dump:/app/dump
-#            - ./data/postgresql:/var/lib/postgresql/data
+
+    postgres:
+        image: postgres:12.1
+        ports:
+            - '5432:5432'
+        container_name: 'postgresql'
+        working_dir: /app
+        restart: always
+        environment:
+            POSTGRES_DB: 'db_name'
+            POSTGRES_USER: 'db_user'
+            POSTGRES_PASSWORD: 'db_pass'
+            PGDATA: '/var/lib/postgresql/data/pgdata'
+        volumes:
+            - ./data/dump:/app/dump
+            - ./data/postgresql:/var/lib/postgresql/pgdata
