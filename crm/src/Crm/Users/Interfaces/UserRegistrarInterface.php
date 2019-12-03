@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Crm\Users\Interfaces;
+namespace App\Crm\Users\Interfaces;
 
 
 interface UserRegistrarInterface

@@ -11,6 +11,28 @@ services:
         autowire: false      # Automatically injects dependencies in your services.
         autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
 
+    entity_manager_factory:
+        shared: false
+        class: Doctrine\ORM\EntityManager
+        factory: ['@doctrine.orm.default_entity_manager', create]
+        arguments:
+            - "@doctrine.dbal.default_connection"
+            - "@doctrine.orm.default_configuration"
 
-    user_api_controller:
-        class: App\Controller\UserApiController
+    users.infrastructure:
+        class: App\Crm\Users\Infrastructure\UserRepository
+        factory: ['@entity_manager_factory', getRepository]
+        arguments:
+            - App\Crm\Users\Domain\Model\User
+
+    users.registrar:
+        class: App\Crm\Users\Domain\Action\UserRegistrar
+
+    App\Controller\UserApiController:
+        public: true
+        arguments:
+            - '@users.registrar'
+        tags: ['controller.service_arguments']
+
+
+

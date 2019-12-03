@@ -39,7 +39,7 @@ services:
     postgres:
         image: postgres:12.1
         ports:
-            - '5432:5432'
+            - '5444:5432'
         container_name: 'postgresql'
         working_dir: /app
         restart: always
