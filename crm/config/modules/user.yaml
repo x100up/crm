@@ -1,0 +1,9 @@
+services:
+    users.infrastructure:
+        class: App\Crm\Users\Infrastructure\UserRepository
+        factory: ['@entity_manager_factory', getRepository]
+        arguments:
+            - App\Crm\Users\Domain\Model\User
+
+    users.registrar:
+        class: App\Crm\Users\Domain\Action\UserRegistrar

@@ -14,4 +14,9 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+    public function findByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
 }
