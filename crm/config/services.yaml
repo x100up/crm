@@ -37,4 +37,11 @@ services:
         tags: ['controller.service_arguments']
 
 
+    App\Controller\AuthApiController:
+        public: true
+        arguments:
+            - '@users.auth'
+        tags: ['controller.service_arguments']
+
+
 

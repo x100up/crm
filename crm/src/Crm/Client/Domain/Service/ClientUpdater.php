@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace App\Crm\Client\Domain\Service;
 
-use App\Crm\Client\Domain\Model\Client;
 use App\Crm\Client\Domain\Repository\ClientRepositoryInterface;
-use App\Crm\Client\Interfaces\ClientCreatorInterface;
 use App\Crm\Client\Interfaces\ClientUpdaterInterface;
-use Crm\Client\Domain\Exception\ClientException;
+use App\Crm\Client\Domain\Exception\ClientException;
 
 class ClientUpdater implements ClientUpdaterInterface
 {

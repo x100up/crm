@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Crm\Users\Domain\Exception;
+namespace App\Crm\Users\Domain\Exception;
 
 class CreateUserException extends \RuntimeException
 {

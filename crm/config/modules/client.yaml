@@ -9,19 +9,16 @@ services:
     # domain
 
     client.client_creator:
-        class: App\Crm\Client\Domain\Action\ClientCreator
+        class: App\Crm\Client\Domain\Service\ClientCreator
         arguments:
             - "@client.infrastructure.client_repository"
 
     client.client_finder:
-        class: App\Crm\Client\Domain\Action\ClientFinder
+        class: App\Crm\Client\Domain\Service\ClientFinder
         arguments:
             - "@client.infrastructure.client_repository"
 
     client.client_updater:
-        class: App\Crm\Client\Domain\Action\ClientUpdater
+        class: App\Crm\Client\Domain\Service\ClientUpdater
         arguments:
             - "@client.infrastructure.client_repository"
-
-    users.registrar:
-        class: App\Crm\Users\Domain\Action\UserRegistrar

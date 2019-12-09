@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Crm\Users\Domain\Model;
+namespace App\Crm\Users\Domain\Model;
 
 /**
  * @ORM\Table(schema="crm", name="auth_token")

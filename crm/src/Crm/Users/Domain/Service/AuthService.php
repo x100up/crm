@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Crm\Users\Domain\Service;
+namespace App\Crm\Users\Domain\Service;
 
 use App\Crm\Users\Domain\Model\User;
 use App\Crm\Users\Domain\Repository\AuthTokenRepositoryInterface;
 use App\Crm\Users\Domain\Repository\UserRepositoryInterface;
 use App\Crm\Users\Interfaces\AuthInterface;
-use Crm\Users\Domain\Model\AuthToken;
+use App\Crm\Users\Domain\Model\AuthToken;
 
 class AuthService implements AuthInterface
 {
@@ -16,6 +16,15 @@ class AuthService implements AuthInterface
 
     /** @var AuthTokenRepositoryInterface */
     private $authTokenRepository;
+
+
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        AuthTokenRepositoryInterface $authTokenRepository
+    ) {
+        $this->userRepository = $userRepository;
+        $this->authTokenRepository = $authTokenRepository;
+    }
 
     public function auth(string $email, string $password): AuthToken
     {

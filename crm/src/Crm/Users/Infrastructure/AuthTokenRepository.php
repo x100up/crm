@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Crm\Users\Infrastructure;
+namespace App\Crm\Users\Infrastructure;
 
+use App\Crm\Users\Domain\Model\AuthToken;
 use App\Crm\Users\Domain\Repository\AuthTokenRepositoryInterface;
-use Crm\Users\Domain\Model\AuthToken;
 use Doctrine\ORM\EntityRepository;
 
 class AuthTokenRepository extends EntityRepository implements AuthTokenRepositoryInterface

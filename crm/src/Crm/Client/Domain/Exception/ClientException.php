@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Crm\Client\Domain\Exception;
+namespace App\Crm\Client\Domain\Exception;
 
 class ClientException extends \RuntimeException
 {

@@ -6,7 +6,7 @@ namespace App\Crm\Users\Domain\Action;
 use App\Crm\Users\Domain\Model\User;
 use App\Crm\Users\Domain\Repository\UserRepositoryInterface;
 use App\Crm\Users\Interfaces\UserRegistrarInterface;
-use Crm\Users\Domain\Exception\CreateUserException;
+use App\Crm\Users\Domain\Exception\CreateUserException;
 
 class UserRegistrar implements UserRegistrarInterface
 {

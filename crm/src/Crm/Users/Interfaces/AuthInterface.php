@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Crm\Users\Interfaces;
 
-use Crm\Users\Domain\Model\AuthToken;
+use App\Crm\Users\Domain\Model\AuthToken;
 
 interface AuthInterface
 {
