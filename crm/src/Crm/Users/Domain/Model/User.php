@@ -39,4 +39,9 @@ class User {
         $this->email = $email;
         $this->password = md5($password);
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

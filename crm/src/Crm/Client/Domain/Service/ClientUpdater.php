@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Crm\Client\Domain\Action;
+namespace App\Crm\Client\Domain\Service;
 
 use App\Crm\Client\Domain\Model\Client;
 use App\Crm\Client\Domain\Repository\ClientRepositoryInterface;

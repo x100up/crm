@@ -19,4 +19,14 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
         return $this->findOneBy(['email' => $email]);
     }
+
+    public function findByEmailAndPassword(string $email, string $password): ?User
+    {
+        return $this->findOneBy(['email' => $email, 'password' => $password]);
+    }
+
+    public function findById(int $userId): ?User
+    {
+        return $this->find($userId);
+    }
 }

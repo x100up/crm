@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Crm\Client\Domain\Action;
+namespace App\Crm\Client\Domain\Service;
 
 use App\Crm\Client\Domain\Model\Client;
 use App\Crm\Client\Domain\Repository\ClientRepositoryInterface;
-use App\Crm\Client\Interfaces\ClientReadInterface;
+use App\Crm\Client\Interfaces\ClientCreatorInterface;
 
-class ClientFinder implements ClientReadInterface
+class ClientCreator implements ClientCreatorInterface
 {
     /** @var ClientRepositoryInterface */
     private $repository;
@@ -17,8 +17,10 @@ class ClientFinder implements ClientReadInterface
         $this->repository = $repository;
     }
 
-    public function getClient(int $id): ?Client
+    public function createClient(string $name, string $email, string $phone): void
     {
-        return $this->repository->getById($id);
+        $client = new Client($name, $email, $phone);
+
+        $this->repository->save($client);
     }
 }
