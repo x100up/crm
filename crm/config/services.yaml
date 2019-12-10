@@ -1,4 +1,7 @@
 imports:
+    - { resource: infrastructure/mail_sender.yaml }
+    - { resource: infrastructure/sms_sender.yaml }
+
     - { resource: modules/user.yaml }
     - { resource: modules/client.yaml }
 
