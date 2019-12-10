@@ -1,0 +1,46 @@
+imports:
+    - { resource: modules/user.yaml }
+    - { resource: modules/client.yaml }
+
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: false      # Automatically injects dependencies in your services.
+        autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+
+    entity_manager_factory:
+        shared: false
+        class: Doctrine\ORM\EntityManager
+        factory: ['@doctrine.orm.default_entity_manager', create]
+        arguments:
+            - "@doctrine.dbal.default_connection"
+            - "@doctrine.orm.default_configuration"
+
+
+    App\Controller\UserApiController:
+        public: true
+        arguments:
+            - '@users.registrar'
+        tags: ['controller.service_arguments']
+
+
+    App\Controller\AuthApiController:
+        public: true
+        arguments:
+            - '@users.auth'
+        tags: ['controller.service_arguments']
+
+    App\Controller\ClientApiController:
+        public: true
+        arguments:
+            - '@client.client_creator'
+        tags: ['controller.service_arguments']
+
+

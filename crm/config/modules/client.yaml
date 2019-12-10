@@ -1,0 +1,24 @@
+services:
+    # infrastructure
+    client.infrastructure.client_repository:
+        class: App\Crm\Client\Infrastructure\ClientRepository
+        factory: ['@entity_manager_factory', getRepository]
+        arguments:
+            - App\Crm\Client\Domain\Model\Client
+
+    # domain
+
+    client.client_creator:
+        class: App\Crm\Client\Domain\Service\ClientCreator
+        arguments:
+            - "@client.infrastructure.client_repository"
+
+    client.client_finder:
+        class: App\Crm\Client\Domain\Service\ClientFinder
+        arguments:
+            - "@client.infrastructure.client_repository"
+
+    client.client_updater:
+        class: App\Crm\Client\Domain\Service\ClientUpdater
+        arguments:
+            - "@client.infrastructure.client_repository"

@@ -1,0 +1,23 @@
+services:
+    users.user_repository:
+        class: App\Crm\Users\Infrastructure\UserRepository
+        factory: ['@entity_manager_factory', getRepository]
+        arguments:
+            - App\Crm\Users\Domain\Model\User
+
+    users.auth_token_repository:
+        class: App\Crm\Users\Infrastructure\AuthTokenRepository
+        factory: ['@entity_manager_factory', getRepository]
+        arguments:
+            - App\Crm\Users\Domain\Model\AuthToken
+
+    users.registrar:
+        class: App\Crm\Users\Domain\Action\UserRegistrar
+        arguments:
+            - "@users.user_repository"
+
+    users.auth:
+        class: App\Crm\Users\Domain\Service\AuthService
+        arguments:
+            - "@users.user_repository"
+            - "@users.auth_token_repository"
