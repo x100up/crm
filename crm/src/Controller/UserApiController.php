@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user/")
+ * @Route("/api/user/")
  */
 class UserApiController
 {
@@ -21,12 +21,12 @@ class UserApiController
     }
 
     /**
-     * @Route("/", name="index")
+     * @Route("add/", name="index")
      *
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function addAction(Request $request): Response
     {
         $email = $request->get('email');
         $password = $request->get('password');
@@ -34,7 +34,7 @@ class UserApiController
         try {
             $this->userRegistrar->createUser($email, $password);
         } catch (\Throwable $exception) {
-            return new Response('Internal error', 500);
+            return new Response('Internal error: '. $exception->getMessage(), 500);
         }
 
         return new Response('');

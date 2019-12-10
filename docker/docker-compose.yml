@@ -8,6 +8,17 @@ services:
         working_dir: /app
         command: composer install
 
+    migrations:
+        build: images/php-cli
+        volumes:
+            - ../crm:/app
+        working_dir: /app
+        container_name: 'migrations'
+        command: "php bin/console doctrine:migrations:migrate -n"
+        depends_on:
+            - composer.install
+            - postgres
+
     php-fpm:
         build: images/php-fpm
         ports:
@@ -15,11 +26,12 @@ services:
         volumes:
             - ../crm:/app
             - ./fpm/www.conf:/etc/php/7.3/fpm/pool.d/www.conf
-            - ./log/www.access.log:/usr/log/www.access.log
+            - ./log/:/usr/log/
         working_dir: /app
         container_name: 'php-fpm'
         depends_on:
             - composer.install
+            - migrations
 
     nginx:
         image: nginx
@@ -34,7 +46,7 @@ services:
             - php-fpm
             - postgres
         depends_on:
-            - composer.install
+            - php-fpm
 
     postgres:
         image: postgres:12.1

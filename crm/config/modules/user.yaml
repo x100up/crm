@@ -13,6 +13,8 @@ services:
 
     users.registrar:
         class: App\Crm\Users\Domain\Action\UserRegistrar
+        arguments:
+            - "@users.user_repository"
 
     users.auth:
         class: App\Crm\Users\Domain\Service\AuthService

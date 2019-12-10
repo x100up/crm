@@ -37,7 +37,7 @@ class AuthService implements AuthInterface
             return $authToken;
         }
 
-        throw new \RuntimeException();
+        throw new \RuntimeException('User not found');
     }
 
     public function authByToken(string $token): ?User

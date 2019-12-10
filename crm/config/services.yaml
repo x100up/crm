@@ -30,12 +30,6 @@ services:
             - '@users.registrar'
         tags: ['controller.service_arguments']
 
-    App\Controller\ClientApiController:
-        public: true
-        arguments:
-            - '@client.client_creator'
-        tags: ['controller.service_arguments']
-
 
     App\Controller\AuthApiController:
         public: true
@@ -43,5 +37,10 @@ services:
             - '@users.auth'
         tags: ['controller.service_arguments']
 
+    App\Controller\ClientApiController:
+        public: true
+        arguments:
+            - '@client.client_creator'
+        tags: ['controller.service_arguments']
 
 

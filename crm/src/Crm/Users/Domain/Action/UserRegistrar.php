@@ -13,6 +13,11 @@ class UserRegistrar implements UserRegistrarInterface
     /** @var UserRepositoryInterface */
     private $repository;
 
+    public function __construct(UserRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function createUser(string $email, string $password): void
     {
         $email = mb_strtolower(trim($email));

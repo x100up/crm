@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/client/")
+ * @Route("/api/client")
  */
 class ClientApiController
 {
@@ -21,7 +21,7 @@ class ClientApiController
     }
 
     /**
-     * @Route("create/", name="index")
+     * @Route("/create/", methods={"POST"})
      *
      * @param Request $request
      * @return Response
@@ -30,12 +30,12 @@ class ClientApiController
     {
         $name = $request->get('name');
         $email = $request->get('email');
-        $password = $request->get('password');
+        $phone = $request->get('phone');
 
         try {
-            $this->clientCreator->createClient($name, $email, $password);
+            $this->clientCreator->createClient($name, $email, $phone);
         } catch (\Throwable $exception) {
-            return new Response('Internal error', 500);
+            return new Response('Internal error: '.$exception->getMessage(), 500);
         }
 
         return new Response('');
