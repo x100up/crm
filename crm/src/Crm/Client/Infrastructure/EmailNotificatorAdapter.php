@@ -19,6 +19,6 @@ class EmailNotificatorAdapter implements ClientNotificatorInterface
 
     public function notifyClient(Client $client, string $message): void
     {
-        $this->mailSender->sendSms($client->getEmail(), $message);
+        $this->mailSender->sendEmail($client->getEmail(), $message);
     }
 }

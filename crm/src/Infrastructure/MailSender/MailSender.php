@@ -5,7 +5,7 @@ namespace App\Infrastructure\MailSender;
 
 class MailSender
 {
-    public function sendSms(string $email, string $message): void {
+    public function sendEmail(string $email, string $message): void {
         // send email
     }
 }
