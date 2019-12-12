@@ -21,3 +21,9 @@ services:
         arguments:
             - "@users.user_repository"
             - "@users.auth_token_repository"
+
+    App\Crm\Users\Integration\TokenAuthenticator:
+        class: App\Crm\Users\Integration\TokenAuthenticator
+        arguments:
+            - "@users.auth_token_repository"
+            - "@users.user_repository"

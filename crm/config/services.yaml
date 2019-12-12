@@ -44,3 +44,7 @@ services:
         tags: ['controller.service_arguments']
 
 
+    App\Crm\Users\Integration\UserProvider:
+        class: App\Crm\Users\Integration\UserProvider
+
+
