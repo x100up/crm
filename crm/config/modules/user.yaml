@@ -27,3 +27,20 @@ services:
         arguments:
             - "@users.auth_token_repository"
             - "@users.user_repository"
+
+    # Integration
+    users.rpc_method.signup:
+        class: App\Crm\Users\Integration\Rpc\Signup
+        arguments:
+            - "@users.registrar"
+
+    users.rpc_method.signin:
+        class: App\Crm\Users\Integration\Rpc\Signin
+        arguments:
+            - "@users.auth"
+
+    users.rpc_methods_list:
+        class: App\Infrastructure\Rpc\RpcMethodList
+        arguments:
+            - "@users.rpc_method.signup"
+            - "@users.rpc_method.signin"
