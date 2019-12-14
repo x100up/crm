@@ -1,0 +1,6 @@
+services:
+    crm.rpc_methods_list:
+        class: App\Infrastructure\Rpc\RpcMethodList
+        arguments:
+            - "@users.rpc_method.signup"
+            - "@users.rpc_method.signin"

@@ -7,12 +7,8 @@ use App\Infrastructure\Rpc\RpcMethodList;
 use App\Infrastructure\Rpc\RpcRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/user/")
- */
-class UserApiController
+class RpcEndpointController
 {
     /** @var RpcMethodList */
     private $rpcMethodList;
@@ -22,7 +18,6 @@ class UserApiController
     }
 
     /**
-     * @Route("", name="user_json_rpc_endpoint", methods={"POST"})
      * @return JsonResponse
      */
     public function endpoint(Request $request): JsonResponse {

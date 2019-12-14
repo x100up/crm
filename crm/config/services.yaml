@@ -1,6 +1,7 @@
 imports:
     - { resource: modules/user.yaml }
     - { resource: modules/client.yaml }
+    - { resource: modules/crm.yaml }
 
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
@@ -23,18 +24,19 @@ services:
             - "@doctrine.dbal.default_connection"
             - "@doctrine.orm.default_configuration"
 
-    App\Controller\UserApiController:
+    users_rpc_endpoint_controller:
+        class: App\Controller\RpcEndpointController
         public: true
         arguments:
             - '@users.rpc_methods_list'
         tags: ['controller.service_arguments']
 
-    App\Controller\ClientApiController:
+    crm_rpc_endpoint_controller:
+        class: App\Controller\RpcEndpointController
         public: true
         arguments:
-            - '@client.client_creator'
+            - '@crm.rpc_methods_list'
         tags: ['controller.service_arguments']
-
 
     App\Crm\Users\Integration\UserProvider:
         class: App\Crm\Users\Integration\UserProvider
