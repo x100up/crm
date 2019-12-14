@@ -40,7 +40,9 @@
 
 ```
 curl -X POST \
--H "Content-Type: application/x-www-form-urlencoded"  -d "email=i@me.com&password=123123" localhost:8080/api/user/add/ 
+--header "Content-Type: application/json" \
+--data '{"jsonrpc": "2.0", "method": "signup", "params": {"name": "Ivan Ivanov", "email": "i@me.com", "password": "123123"}}' \
+localhost:8080/api/user/ 
 ```
 
 __TODO:__
@@ -49,7 +51,10 @@ __TODO:__
 
 
 ```
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "email=i@me.com&password=123123" localhost:8080/api/auth/ 
+curl -X POST \
+--header "Content-Type: application/json" \
+--data '{"jsonrpc": "2.0", "method": "signin", "params": {"email": "i@me.com", "password": "123123"}}' \
+localhost:8080/api/user/ 
 ```
 
 # Работа с клиентами

@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Crm\Users\Interfaces\UserRegistrarInterface;
+use App\Infrastructure\Rpc\RpcMethodList;
+use App\Infrastructure\Rpc\RpcRequest;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -13,30 +14,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserApiController
 {
-    /** @var UserRegistrarInterface */
-    private $userRegistrar;
+    /** @var RpcMethodList */
+    private $rpcMethodList;
 
-    public function __construct(UserRegistrarInterface $userRegistrar) {
-        $this->userRegistrar = $userRegistrar;
+    public function __construct(RpcMethodList $rpcMethodList) {
+        $this->rpcMethodList = $rpcMethodList;
     }
 
     /**
-     * @Route("add/", name="index")
-     *
-     * @param Request $request
-     * @return Response
+     * @Route("", name="user_json_rpc_endpoint", methods={"POST"})
+     * @return JsonResponse
      */
-    public function addAction(Request $request): Response
-    {
-        $email = $request->get('email');
-        $password = $request->get('password');
+    public function endpoint(Request $request): JsonResponse {
+        $body = $request->getContent();
 
-        try {
-            $this->userRegistrar->createUser($email, $password);
-        } catch (\Throwable $exception) {
-            return new Response('Internal error: '. $exception->getMessage(), 500);
-        }
+        $body = \json_decode($body, true);
 
-        return new Response('');
+        $request = new RpcRequest($body);
+
+        $method = $this->rpcMethodList->findMethod($request->getMethodName());
+
+        $response = $method->call($request);
+
+        return new JsonResponse($response, $response->getCode());
     }
 }
