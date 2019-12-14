@@ -5,5 +5,5 @@ namespace App\Crm\Users\Interfaces;
 
 interface UserRegistrarInterface
 {
-    public function createUser(string $name, string $email): void;
+    public function createUser(string $name, string $email, string $password): void;
 }
