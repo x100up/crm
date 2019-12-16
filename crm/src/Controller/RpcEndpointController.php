@@ -29,7 +29,29 @@ class RpcEndpointController
 
         $method = $this->rpcMethodList->findMethod($request->getMethodName());
 
-        $response = $method->call($request);
+        if ($method === null) {
+            return new JsonResponse(['jsonrpc'=>'2.0', 'result'=> [
+                'code' => -32001,
+                'message' => 'Server error',
+                'data' => [
+                    'message' => "Method {$request->getMethodName()} not found",
+                    'code' => 404,
+                ]
+            ]]);
+        }
+
+        try {
+            $response = $method->call($request);
+        } catch (\InvalidArgumentException $e) {
+            return new JsonResponse(['jsonrpc'=>'2.0', 'result'=> [
+                'code' => -32001,
+                'message' => 'Server error',
+                'data' => [
+                    'message' => $e->getMessage(),
+                    'code' => 500,
+                ]
+            ]]);
+        }
 
         return new JsonResponse($response, $response->getCode());
     }

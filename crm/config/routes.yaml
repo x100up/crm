@@ -3,5 +3,5 @@ users_rpc_endpoint:
     controller: users_rpc_endpoint_controller::endpoint
 
 crm_rpc_endpoint:
-    path: /api/user/
-    controller: users_rpc_endpoint_controller::endpoint
+    path: /api/crm/
+    controller: crm_rpc_endpoint_controller::endpoint
