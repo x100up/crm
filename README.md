@@ -79,3 +79,6 @@ localhost:8080/api/crm/
 
 #### TODO Изменение клиента
 #### TODO Удаление клиента
+
+# Архитектура
+![alt text](CRM.png)
