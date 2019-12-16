@@ -68,7 +68,7 @@ curl \
 localhost:8080/api/crm/ 
 ```
 
-#### TODO Получение клиента
+####  Получение клиента
 ```
 curl \
 -X POST \
@@ -78,23 +78,4 @@ localhost:8080/api/crm/
 ```
 
 #### TODO Изменение клиента
-```
-curl \
--X POST \
--H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "email=i@me.com&password=123123" 
-localhost:8080/api/auth/ 
-```
-
-
-
 #### TODO Удаление клиента
-```
-curl \
--X POST \
--H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "email=i@me.com&password=123123" \
-localhost:8080/api/auth/ 
-```
