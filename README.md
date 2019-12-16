@@ -63,37 +63,22 @@ localhost:8080/api/user/
 ```
 curl \
 -X POST \
+-H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d832s0" \
+--data '{"jsonrpc": "2.0", "method": "create_client", "params": {"name": "Ivan", "email": "ivan@ivan.com", "phone":"+12345697"}}' \
+localhost:8080/api/crm/ 
+```
+
+####  Получение клиента
+```
+curl \
+-X POST \
 -H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "name=Ivan&email=ivan@ivan.com&phone=+12345697"
-localhost:8080/api/client/create/ 
+--data '{"jsonrpc": "2.0", "method": "find_client", "params": {"field": "email", "value": "ivan@ivan.com"}}' \
+localhost:8080/api/crm/ 
 ```
 
 #### TODO Изменение клиента
-```
-curl \
--X POST \
--H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "email=i@me.com&password=123123" 
-localhost:8080/api/auth/ 
-```
-
-#### TODO Получение клиента
-```
-curl \
--X POST \
--H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "email=i@me.com&password=123123" localhost:8080/api/auth/ 
-```
-
 #### TODO Удаление клиента
-```
-curl \
--X POST \
--H "X-AUTH-TOKEN: ff6efcd3103ceba4426fa67aed0d8320" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "email=i@me.com&password=123123" \
-localhost:8080/api/auth/ 
-```
+
+# Архитектура
+![alt text](CRM.png)

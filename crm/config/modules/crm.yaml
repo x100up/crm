@@ -1,6 +1,17 @@
 services:
+    crm.rpc_method.create_client:
+        class: App\Crm\Client\Integration\Rpc\CreateRpcMethod
+        arguments:
+            - "@client.client_creator"
+
+    crm.rpc_method.find_client:
+        class: App\Crm\Client\Integration\Rpc\FindRpcMethod
+        arguments:
+            - "@client.client_finder"
+
+
     crm.rpc_methods_list:
         class: App\Infrastructure\Rpc\RpcMethodList
         arguments:
-            - "@users.rpc_method.signup"
-            - "@users.rpc_method.signin"
+            - "@crm.rpc_method.create_client"
+            - "@crm.rpc_method.find_client"

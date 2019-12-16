@@ -74,14 +74,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $data = [
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
-
-            // or to translate this message
-            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
-        ];
-
-        return new JsonResponse($data, Response::HTTP_FORBIDDEN);
+        return new JsonResponse(['jsonrpc'=>'2.0', 'result'=> [
+            'code' => -32001,
+            'message' => 'Server error',
+            'data' => [
+                'message' => 'Authentication failure',
+                'code' => Response::HTTP_FORBIDDEN,
+            ]
+        ]]);
     }
 
     /**
@@ -89,12 +89,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $data = [
-            // you might translate this message
-            'message' => 'Authentication Required'
-        ];
-
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        return new JsonResponse(['jsonrpc'=>'2.0', 'result'=> [
+            'code' => -32001,
+            'message' => 'Server error',
+            'data' => [
+                'message' => 'Authentication Required',
+                'code' => Response::HTTP_UNAUTHORIZED,
+            ]
+        ]]);
     }
 
     public function supportsRememberMe()
