@@ -28,12 +28,16 @@ class Signin implements RpcMethodInterface
         $params = $request->getParams();
 
         $email = $params['email'] ?? $params[0] ?: null;
-        $password = $params['password'] ?? $params[1] ?: null;
+        $password = $params['password'] ?? $params[1] ?? null;
 
         try {
             $token = $this->auth->auth($email, $password);
         } catch (\Throwable $exception) {
             return new RpcResponse('Internal error: '.$exception->getMessage(), 500);
+        }
+
+        if ($token === null) {
+            return new RpcResponse('Unauthorized', 400);
         }
 
         return new RpcResponse(['token' => $token->getToken()]);

@@ -18,4 +18,13 @@ class ClientRepository extends EntityRepository implements ClientRepositoryInter
     public function getById(int $id): ?Client {
         return $this->findOneBy(['id' => $id, 'status' => 'active']);
     }
+
+    public function findByEmail(string $email): ?Client {
+        return $this->findOneBy(['email' => $email, 'status' => 'active']);
+    }
+
+    public function findByPhone(string $phone): ?Client
+    {
+        return $this->findOneBy(['phone' => $phone, 'status' => 'active']);
+    }
 }
