@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Crm\Client\Infrastructure;
+namespace App\Crm\Client\Integration;
 
 use App\Crm\Client\Domain\Model\Client;
 use App\Crm\Client\Interfaces\ClientNotificatorInterface;

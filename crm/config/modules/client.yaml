@@ -7,12 +7,12 @@ services:
             - App\Crm\Client\Domain\Model\Client
 
     client.infrastructure.email_notificator:
-        class: App\Crm\Client\Infrastructure\EmailNotificatorAdapter
+        class: App\Crm\Client\Integration\EmailNotificatorAdapter
         arguments:
             - "@mail_sender"
 
     client.infrastructure.sms_notificator:
-        class: App\Crm\Client\Infrastructure\SmsNotificatorAdapter
+        class: App\Crm\Client\Integration\SmsNotificatorAdapter
         arguments:
             - "@sms_sender"
 
