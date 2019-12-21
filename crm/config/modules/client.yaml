@@ -6,6 +6,16 @@ services:
         arguments:
             - App\Crm\Client\Domain\Model\Client
 
+    client.infrastructure.email_notificator:
+        class: App\Crm\Client\Integration\EmailNotificatorAdapter
+        arguments:
+            - "@mail_sender"
+
+    client.infrastructure.sms_notificator:
+        class: App\Crm\Client\Integration\SmsNotificatorAdapter
+        arguments:
+            - "@sms_sender"
+
     # domain
 
     client.client_creator:
@@ -22,3 +32,9 @@ services:
         class: App\Crm\Client\Domain\Service\ClientUpdater
         arguments:
             - "@client.infrastructure.client_repository"
+
+    client.notificator_sender:
+        class: App\Crm\Client\Domain\Service\NotificatorService
+        arguments:
+            - "@client.infrastructure.email_notificator"
+            - "@client.infrastructure.sms_notificator"

@@ -67,4 +67,14 @@ class Client
     {
         $this->status = 'deleted';
     }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
 }

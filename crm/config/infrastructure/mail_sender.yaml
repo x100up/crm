@@ -1,0 +1,3 @@
+services:
+    mail_sender:
+        class: App\Infrastructure\MailSender\MailSender
