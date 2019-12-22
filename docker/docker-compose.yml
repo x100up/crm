@@ -1,58 +1,47 @@
 version: '3'
 services:
-    composer.install:
-        build: images/php-cli
-        volumes:
-            - ../crm:/app
-        container_name: composer.install
-        working_dir: /app
-        command: composer install
-
-    migrations:
+    prepare.crm:
         build: images/php-cli
         volumes:
             - ../crm:/app
         working_dir: /app
-        container_name: 'migrations'
-        command: "php bin/console doctrine:migrations:migrate -n"
+        command: bash -c "composer install && php bin/console doctrine:migrations:migrate -n"
         depends_on:
-            - composer.install
-            - postgres
+          - postgres.crm
 
-    php-fpm:
+    php-fpm.crm:
         build: images/php-fpm
         ports:
             - '9000:9000'
         volumes:
             - ../crm:/app
             - ./fpm/www.conf:/etc/php/7.3/fpm/pool.d/www.conf
-            - ./log/:/usr/log/
+            - ./log/crm/:/usr/log/
         working_dir: /app
-        container_name: 'php-fpm'
+        container_name: php-fpm.crm
         depends_on:
-            - composer.install
-            - migrations
+            - prepare.crm
 
-    nginx:
+    nginx.crm:
         image: nginx
-        container_name: 'nginx'
+        container_name: 'nginx.crm'
         working_dir: /app
         ports:
             - '8080:80'
         volumes:
             - ../crm:/app
-            - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/nginx.crm.conf:/etc/nginx/conf.d/default.conf
         links:
-            - php-fpm
-            - postgres
+            - php-fpm.crm
+            - postgres.crm
         depends_on:
-            - php-fpm
+            - php-fpm.crm
 
-    postgres:
+    postgres.crm:
         image: postgres:12.1
         ports:
             - '5444:5432'
-        container_name: 'postgresql'
+        container_name: 'postgresql.crm'
         working_dir: /app
         restart: always
         environment:
@@ -61,5 +50,61 @@ services:
             POSTGRES_PASSWORD: 'db_pass'
             PGDATA: '/var/lib/postgresql/data/pgdata'
         volumes:
-            - ./data/dump:/app/dump
-            - ./data/postgresql:/var/lib/postgresql/pgdata
+            - ./data/crm/dump:/app/dump
+            - ./data/crm/postgresql:/var/lib/postgresql/pgdata
+
+
+# SMS Sender
+
+    sms-sender.prepare:
+        build: images/php-cli
+        volumes:
+            - ../sms-sender:/app
+        working_dir: /app
+        command: bash -c "composer install && php bin/console doctrine:migrations:migrate -n"
+        depends_on:
+          - postgres.sms-sender
+
+    php-fpm.sms-sender:
+        build: images/php-fpm
+        ports:
+            - '9001:9000'
+        volumes:
+            - ../sms-sender:/app
+            - ./fpm/www.conf:/etc/php/7.3/fpm/pool.d/www.conf
+            - ./log/sms-sender/:/usr/log/
+        working_dir: /app
+        container_name: php-fpm.sms-sender
+        depends_on:
+            - sms-sender.prepare
+
+    postgres.sms-sender:
+        image: postgres:12.1
+        ports:
+            - '5445:5432'
+        container_name: 'postgresql.sms-sender'
+        working_dir: /app
+        restart: always
+        environment:
+            POSTGRES_DB: 'db_name'
+            POSTGRES_USER: 'db_user'
+            POSTGRES_PASSWORD: 'db_pass'
+            PGDATA: '/var/lib/postgresql/data/pgdata'
+        volumes:
+            - ./data/sms-sender/dump:/app/dump
+            - ./data/sms-sender/postgresql:/var/lib/postgresql/pgdata
+
+    nginx.sms-sender:
+        image: nginx
+        container_name: 'nginx.sms-sender'
+        working_dir: /app
+        ports:
+            - '8081:80'
+        volumes:
+            - ../sms-sender:/app
+            - ./nginx/nginx.sms-sender.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - php-fpm.sms-sender
+            - postgres.sms-sender
+        depends_on:
+            - php-fpm.sms-sender

@@ -33,11 +33,15 @@ class CreateRpcMethod implements RpcMethodInterface
 
 
         try {
-            $this->clientCreator->createClient($name, $email, $phone);
+            $client = $this->clientCreator->createClient($name, $email, $phone);
         } catch (\Throwable $exception) {
             return new RpcResponse('Internal error: '.$exception->getMessage(), 500);
         }
 
-        return new RpcResponse();
+        return new RpcResponse([
+            'email' => $client->getEmail(),
+            'phone' => $client->getPhone(),
+            'id' => $client->getId(),
+        ]);
     }
 }

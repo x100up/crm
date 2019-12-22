@@ -1,0 +1,17 @@
+services:
+    #Domain
+    sms_sender:
+        class: App\SmsSender\Domain\SmsSender
+        arguments:
+            - "@monolog.logger"
+
+    #Integration
+    rpc_method_send_sms:
+        class: App\SmsSender\Integration\Rpc\SendSms
+        arguments:
+            - "@sms_sender"
+
+    rpc_methods_list:
+        class: App\Infrastructure\Rpc\RpcMethodList
+        arguments:
+            - "@rpc_method_send_sms"

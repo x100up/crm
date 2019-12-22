@@ -77,4 +77,9 @@ class Client
     {
         return $this->phone;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

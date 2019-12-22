@@ -1,0 +1,3 @@
+sms_sender_rpc_endpoint_controller:
+    path: /api/
+    controller: sms_sender_rpc_endpoint_controller::endpoint

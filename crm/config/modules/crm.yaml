@@ -9,9 +9,15 @@ services:
         arguments:
             - "@client.client_finder"
 
+    crm.rpc_method.notify_client:
+        class: App\Crm\Client\Integration\Rpc\NotifyRpcMethod
+        arguments:
+            - "@client.client_finder"
+            - "@client.notificator_sender"
 
     crm.rpc_methods_list:
         class: App\Infrastructure\Rpc\RpcMethodList
         arguments:
             - "@crm.rpc_method.create_client"
             - "@crm.rpc_method.find_client"
+            - "@crm.rpc_method.notify_client"

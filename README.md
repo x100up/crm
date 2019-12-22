@@ -80,5 +80,15 @@ localhost:8080/api/crm/
 #### TODO Изменение клиента
 #### TODO Удаление клиента
 
+# Отправка сообщения клиенту
+
+```
+curl \
+-X POST \
+-H "X-AUTH-TOKEN: 339f572b787dc5df8ebbcd9a052376c0" \
+--data '{"jsonrpc": "2.0", "method": "notify_client", "params": {"clientId": 1, "message": "hello"}}' \
+localhost:8080/api/crm/ 
+```
+
 # Архитектура
 ![alt text](CRM.png)

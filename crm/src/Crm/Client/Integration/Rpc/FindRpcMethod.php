@@ -58,6 +58,7 @@ class FindRpcMethod implements RpcMethodInterface
         return new RpcResponse([
             'email' => $client->getEmail(),
             'phone' => $client->getPhone(),
+            'id' => $client->getId(),
         ]);
     }
 }

@@ -17,10 +17,12 @@ class ClientCreator implements ClientCreatorInterface
         $this->repository = $repository;
     }
 
-    public function createClient(string $name, string $email, string $phone): void
+    public function createClient(string $name, string $email, string $phone): Client
     {
         $client = new Client($name, $email, $phone);
 
         $this->repository->save($client);
+
+        return $client;
     }
 }
